@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "readline-sync": "^1.4.10"
-  }
+  },
+  "name": "money-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
 }
