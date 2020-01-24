@@ -1,14 +1,1 @@
-[
-  {
-    "year": 2019,
-    "month": "January",
-    "amount": 60,
-    "origin": "Formatação de notebook"
-  },
-  {
-    "year": 2019,
-    "month": "January",
-    "amount": 5,
-    "origin": "Criação de tabela"
-  }
-]
+[{"year":2020,"month":"Jan","amount":60,"origin":"Formatação de notebook","status":"Pago","client":"Acleirton","contact":""},{"year":2020,"month":"Jan","amount":5,"origin":"Criação de tabela","status":"Pendente","client":"Joyce Kádna","contact":"(89) 98124-9602"}]
