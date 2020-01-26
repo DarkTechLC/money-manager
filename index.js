@@ -3,7 +3,7 @@ const os = require('os');
 const rl = require('readline-sync');
 
 const homedir = os.homedir();
-const path = `${homedir}/.MoneyMg/`
+const path = `${homedir}/.MoneyMg/`;
 const file = 'money.json';
 const filePath = `${path}${file}`;
 
@@ -40,13 +40,13 @@ function lineSeparetor() {
 
 function printReceived() {
   let infos = `${green}  Registro ${Number(i) + 1}:${white}
-    Data: ${money[i].month}/${money[i].year}
-    Valor: R$ ${money[i].amount}
-    Origem: ${money[i].origin}.
-    Status: ${money[i].status}
-    Cliente: ${money[i].client}
-    Contato: ${money[i].contact}
-    Informações adicionais: ${money[i].additional}\n`
+    ${yellow}Data:${white} ${money[i].month}/${money[i].year}
+    ${yellow}Valor:${white} R$ ${money[i].amount}
+    ${yellow}Origem:${white} ${money[i].origin}.
+    ${yellow}Status:${white} ${money[i].status}
+    ${yellow}Cliente:${white} ${money[i].client}
+    ${yellow}Contato:${white} ${money[i].contact}
+    ${yellow}Informações adicionais:${white} ${money[i].additional}\n`
 
   console.log(infos);
 };
@@ -93,7 +93,7 @@ function add() {
   printReceived();
 
   lineSeparetor();
-  console.log(`${green} >> Adicionado com sucesso. Salvo em '${filePath}'.`);
+  console.log(`${green} >> Adicionado com sucesso.\n >> Salvo em '${filePath}'.`);
   lineSeparetor();
 };
 
@@ -106,7 +106,7 @@ function deleteR() {
   money.splice(indexReceived, 1);
 
   lineSeparetor();
-  console.log(`${green} >> Deletado com sucesso. Salvo em '${filePath}'.`);
+  console.log(`${green} >> Deletado com sucesso.\n >> Salvo em '${filePath}'.`);
   lineSeparetor();
 };
 
@@ -167,7 +167,7 @@ function updateR() {
   printReceived();
 
   lineSeparetor();
-  console.log(`${green} >> Atualizado com sucesso. Salvo em '${filePath}'.`);
+  console.log(`${green} >> Atualizado com sucesso.\n >> Salvo em '${filePath}'.`);
   lineSeparetor();
 };
 
