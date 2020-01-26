@@ -1,12 +1,15 @@
 const fs = require('fs');
 const rl = require('readline-sync');
 
-const filePath = '/home/clicio/Projetos/Money-Manager/money.json';
+const path = '/home/clicio/.MoneyMg/'
+const file = 'money.json'
+const filePath = `${path}${file}`;
 let data;
 
 try {
   data = fs.readFileSync(filePath, 'utf8');
 } catch (err) {
+  fs.mkdirSync(path);
   let content = [];
   content = JSON.stringify(content)
   fs.writeFileSync(filePath, content);
@@ -15,22 +18,25 @@ try {
 
 const money = JSON.parse(data);
 
-let red, blue, yellow, green, reset;
+let red, blue, yellow, green, white, reset;
 
-red = '\u001b[31m';
-blue = '\u001b[34m';
-yellow = '\u001b[33m';
-green = '\u001b[32m';
+red = '\u001b[1;31m';
+blue = '\u001b[1;34m';
+yellow = '\u001b[1;33m';
+green = '\u001b[1;32m';
+white = '\u001b[1;30m';
 reset = '\u001b[0m';
 
 let i, year, month, amount, origin, status, client, contact, additional;
 
 function lineSeparetor() {
-  console.log(`${blue}\n+----------------------------------------------------------------+\n${reset}`);
+  console.log(
+    `${blue}\n+----------------------------------------------------------------+\n${white}`
+  );
 };
 
 function printReceived() {
-  let infos = `${green}  Recebimento ${Number(i) + 1}:${reset}
+  let infos = `${green}  Registro ${Number(i) + 1}:${white}
     Data: ${money[i].month}/${money[i].year}
     Valor: R$ ${money[i].amount}
     Origem: ${money[i].origin}.
@@ -49,14 +55,21 @@ function add() {
   const y = new Date().getFullYear();
   const m = months[new Date().getMonth()];
 
-  year = rl.questionInt(` > Digite o ano do recebimento(Padrão: ${y}): `, { defaultInput: y });
-  month = rl.question(` > Digite o mês do recebimento(Padrão: ${m}): `, { defaultInput: m });
-  amount = rl.questionInt(' > Digite o valor do recebimento: ');
-  origin = rl.question(' > Digite a origem do recebimento: ');
-  status = rl.question(' > Status do pagamento(Padrão: Pago): ', { defaultInput: 'Pago' })
-  client = rl.question(' > Digite o nome do cliente: ', { defaultInput: '' });
-  contact = rl.question(' > Digite algum contato do cliente: ', { defaultInput: '' });
-  additional = rl.question(' > Informações adicionais: ', { defaultInput: '' });
+  year = rl.questionInt(` > Digite o ano do registro(Padrão: ${y}): `,
+    { defaultInput: y });
+  month = rl.question(` > Digite o mês do registro(Padrão: ${m}): `,
+    { defaultInput: m });
+  amount = rl.questionFloat(' > Digite o valor do registro: ');
+  origin = rl.question(' > Digite a origem do registro: ',
+    { defaultInput: '' });
+  status = rl.question(' > Status de pagamento(Padrão: Pago): ',
+    { defaultInput: 'Pago' })
+  client = rl.question(' > Digite o nome do cliente: ',
+    { defaultInput: '' });
+  contact = rl.question(' > Digite algum contato do cliente: ',
+    { defaultInput: '' });
+  additional = rl.question(' > Informações adicionais: ',
+    { defaultInput: '' });
 
   money.push(
     {
@@ -113,23 +126,23 @@ function updateR() {
   additional = money[indexReceived].additional;
 
   money[indexReceived].year = rl.questionInt(
-    ` > Digite o ano do recebimento(Atual: ${year}): `,
+    ` > Digite o ano do registro(Atual: ${year}): `,
     { defaultInput: year }
   );
   money[indexReceived].month = rl.question(
-    ` > Digite o mês do recebimento(Atual: ${month}): `,
+    ` > Digite o mês do registro(Atual: ${month}): `,
     { defaultInput: month }
   );
-  money[indexReceived].amount = rl.questionInt(
-    ` > Digite o valor do recebimento(Atual: ${amount}): `,
+  money[indexReceived].amount = rl.questionFloat(
+    ` > Digite o valor do registro(Atual: ${amount}): `,
     { defaultInput: amount }
   );
   money[indexReceived].origin = rl.question(
-    ` > Digite a origem do recebimento(Atual: ${origin}): `,
+    ` > Digite a origem do registro(Atual: ${origin}): `,
     { defaultInput: origin }
   );
   money[indexReceived].status = rl.question(
-    ` > Status do pagamento(Atual: ${status}): `,
+    ` > Status de pagamento(Atual: ${status}): `,
     { defaultInput: status }
   );
   money[indexReceived].client = rl.question(
@@ -141,7 +154,7 @@ function updateR() {
     { defaultInput: contact }
   );
   money[indexReceived].additional = rl.question(
-    ` > Digite algum contato do cliente(Atual: ${additional}): `,
+    ` > Informações adicionais(Atual: ${additional}): `,
     { defaultInput: additional }
   );
 
@@ -193,7 +206,7 @@ function printTotal() {
 
 function menu() {
   lineSeparetor();
-  console.log(`\t\t\t${blue}MoneyManager${reset}`);
+  console.log(`\t\t\t${blue}MoneyManager${white}`);
   lineSeparetor();
 
   const options = [
@@ -204,7 +217,8 @@ function menu() {
     'Ver totais'
   ];
 
-  let index = rl.keyInSelect(options, 'Selecione uma opção:', { cancel: 'Sair' });
+  let index = rl.keyInSelect(options, 'Selecione uma opção:',
+    { cancel: 'Sair' });
 
   lineSeparetor();
 
