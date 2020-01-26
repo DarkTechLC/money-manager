@@ -1,9 +1,12 @@
 const fs = require('fs');
+const os = require('os');
 const rl = require('readline-sync');
 
-const path = '/home/clicio/.MoneyMg/'
-const file = 'money.json'
+const homedir = os.homedir();
+const path = `${homedir}/.MoneyMg/`
+const file = 'money.json';
 const filePath = `${path}${file}`;
+
 let data;
 
 try {
@@ -126,35 +129,35 @@ function updateR() {
   additional = money[indexReceived].additional;
 
   money[indexReceived].year = rl.questionInt(
-    ` > Digite o ano do registro(Atual: ${year}): `,
+    ` > Digite o ano do registro(Atual: ${yellow}${year}${white}): `,
     { defaultInput: year }
   );
   money[indexReceived].month = rl.question(
-    ` > Digite o mês do registro(Atual: ${month}): `,
+    ` > Digite o mês do registro(Atual: ${yellow}${month}${white}): `,
     { defaultInput: month }
   );
   money[indexReceived].amount = rl.questionFloat(
-    ` > Digite o valor do registro(Atual: ${amount}): `,
+    ` > Digite o valor do registro(Atual: ${yellow}${amount}${white}): `,
     { defaultInput: amount }
   );
   money[indexReceived].origin = rl.question(
-    ` > Digite a origem do registro(Atual: ${origin}): `,
+    ` > Digite a origem do registro(Atual: ${yellow}${origin}${white}): `,
     { defaultInput: origin }
   );
   money[indexReceived].status = rl.question(
-    ` > Status de pagamento(Atual: ${status}): `,
+    ` > Status de pagamento(Atual: ${yellow}${status}${white}): `,
     { defaultInput: status }
   );
   money[indexReceived].client = rl.question(
-    ` > Digite o nome do cliente(Atual: ${client}): `,
+    ` > Digite o nome do cliente(Atual: ${yellow}${client}${white}): `,
     { defaultInput: client }
   );
   money[indexReceived].contact = rl.question(
-    ` > Digite algum contato do cliente(Atual: ${contact}): `,
+    ` > Digite algum contato do cliente(Atual: ${yellow}${contact}${white}): `,
     { defaultInput: contact }
   );
   money[indexReceived].additional = rl.question(
-    ` > Informações adicionais(Atual: ${additional}): `,
+    ` > Informações adicionais(Atual: ${yellow}${additional}${white}): `,
     { defaultInput: additional }
   );
 
@@ -218,7 +221,7 @@ function menu() {
   ];
 
   let index = rl.keyInSelect(options, 'Selecione uma opção:',
-    { cancel: 'Sair' });
+    { cancel: `${red}Sair${white}` });
 
   lineSeparetor();
 
