@@ -33,8 +33,9 @@ reset = '\u001b[0m';
 let i, year, month, amount, origin, status, client, contact, additional;
 
 function lineSeparetor() {
+  const line = '-'.repeat(70);
   console.log(
-    `${blue}\n+----------------------------------------------------------------+\n${white}`
+    `${blue}\n+${line}+\n${white}`
   );
 };
 
@@ -186,30 +187,46 @@ function printInfo() {
   };
 
   printTotal();
-  lineSeparetor();
 };
 
 function printTotal() {
-  let totalReceived = 0;
-  let totalPending = 0;
+  let totalReceived;
+  let totalPending;
 
-  for (let i in money) {
-    let status = money[i].status;
+  // for (let i of money) {
+  //   let status = i.status;
 
-    if (status === 'Pago') {
-      totalReceived += money[i].amount;
-    } else {
-      totalPending += money[i].amount;
-    }
+  //   if (status === 'Pago') {
+  //     totalReceived += i.amount;
+  //   } else {
+  //     totalPending += i.amount;
+  //   }
+  // }
+
+  function totalRP(stt) {
+    const total = money
+      .filter(registry => registry.status === stt)
+      .reduce(
+        (amountAcumulated, amountValue) => amountAcumulated + amountValue.amount, 0
+      );
+    return total;
   }
+
+  totalReceived = totalRP('Pago');
+  totalPending = totalRP('Pendente');
 
   console.log(`${green} >> Total recebido: R$ ${totalReceived}`);
   console.log(`${red} >> Total pendente: R$ ${totalPending}`);
+  lineSeparetor();
 }
 
 function menu() {
+  let name = ' MoneyManager ';
+  name = name.padStart(name.length + 29, '-');
+  name = name.padEnd(name.length + 29, '-');
+
   lineSeparetor();
-  console.log(`\t\t\t${blue}MoneyManager${white}`);
+  console.log(`${blue}${name}${white}`);
   lineSeparetor();
 
   const options = [
@@ -238,7 +255,6 @@ function menu() {
     printInfo();
   } else if (index === 4) {
     printTotal();
-    lineSeparetor();
   }
 };
 
